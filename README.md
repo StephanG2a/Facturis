@@ -1,51 +1,84 @@
-# Facturis
+# Symfony Docker (PHP8 / Caddy / Postgresql)
 
-Un outil sur mesure pour la création, la gestion et le suivi de devis et factures, conçu spécifiquement pour les petites et moyennes entreprises.
+A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework, with full [HTTP/2](https://symfony.com/doc/current/weblink.html), HTTP/3 and HTTPS support.
 
-![Image de la plateforme](lien_vers_une_image_de_présentation)
+## Getting Started
 
-## 🌐 Repository
+1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/)
+2. Run `docker compose build --pull --no-cache` to build fresh images
+3. Run `docker compose up` (the logs will be displayed in the current shell) or Run `docker compose up -d` to run in background
+4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
+5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+6. Run `docker compose logs -f` to display current logs, `docker compose logs -f [CONTAINER_NAME]` to display specific container's current logs
 
-Ce projet est hébergé sur GitHub à l'adresse suivante : [Lien vers le repository](https://github.com/SkyDogzz/Challenge-4A-S1---Groupe-16).
+## Commandes utiles
+Lister l'ensemble des commandes existances `docker compose exec php bin/console`
 
-## 🌟 Fonctionnalités (à faire)
+#### Création de fichier vierge
+Controller `docker compose exec php bin/console make:controller`
 
-- **Gestion des Devis et Factures**: Créez, modifiez et supprimez des devis et des factures en toute simplicité.
-- **Gestion des Clients**: Tenez un registre organisé de toutes vos interactions avec les clients.
-- **Produits et Catégories**: Organisez vos produits et services pour une sélection facile lors de la création de devis.
-- **Notifications par E-mail**: Automatisez l'envoi de vos devis et factures par e-mail.
-- ... [autres fonctionnalités]
+FormType `docker compose exec php bin/console make:form`
 
-## 🚀 Démarrage rapide
+CRUD `docker compose exec php bin/console make:crud`
 
-### Prérequis
+#### Debug
+Supprimer le cache du navigateur
 
-- Docker
-- ... [autres prérequis]
+`docker compose exec php bin/console cache:clear`
 
-### Installation
+`docker compose exec php bin/console c:c`
 
-1. Clonez ce dépôt: git@github.com:StephanG2a/Facturis.git
-2. Accédez au dossier du projet : cd []
-3. Lancez l'application avec Docker : docker-compose up -d
-4. ... [autres étapes d'installation si nécessaire]
+Voir les routes actives
 
-## 📖 Documentation
+`docker compose exec php bin/console debug:router`
 
-Vous pouvez accéder à la documentation complète [ici](lien_vers_la_documentation).
+## Gestion des routes
+[https://symfony.com/doc/current/routing.html](https://symfony.com/doc/current/routing.html)
 
-## 🛠️ Collaborateurs
+## Autowiring & ParamConverter
+Autowiring [https://symfony.com/doc/current/service_container/autowiring.html](https://symfony.com/doc/current/service_container/autowiring.html)
 
-- **Stéphan GUEORGUIEFF** - [@StephanG2a](https://github.com/StephanG2a)
+ParamConverter [https://symfony.com/bundles/SensioFrameworkExtraBundle/current/annotations/converters.html](https://symfony.com/bundles/SensioFrameworkExtraBundle/current/annotations/converters.html)
 
-## 🔐 Commits Auto-signés
+## Gestion de base de données
 
-Tous les commits de ce repository ont été auto-signés pour garantir leur authenticité.
+#### Fix error duplicate table (en rapport avec le cours uniquement; quand vous faites un pull du git du cours)
+Supprimer l'ensemble de vos migrations et faire les commandes suivantes :
 
-## 📄 Licence
+`docker compose exec php bin/console d:d:d --force`
 
-Ce projet est sous licence [MIT](lien_vers_le_fichier_de_licence).
+`docker compose exec php bin/console d:d:c`
 
-## 📞 Contact
+`docker compose exec php bin/console make:migr`
 
-Pour toute question ou retour d'information, n'hésitez pas à me contacter.
+`docker compose exec php bin/console d:m:m`
+
+
+#### Commandes de création des fichiers entity/repository et d'ajout de champs
+`docker compose exec php bin/console make:entity`
+
+Documentation sur les relations entre les entités [https://symfony.com/doc/current/doctrine/associations.html](https://symfony.com/doc/current/doctrine/associations.html)
+
+#### Mise à jour de la base de données via migration
+Generation d'une migration
+
+`docker compose exec php bin/console make:migration`
+
+Jouer les migrations
+
+`docker compose exec php bin/console doctrine:migration:migrate`
+
+`docker compose exec php bin/console d:m:m`
+
+#### Mise à jour de la base de données via update de schema sans migration
+Voir les requètes interprétées (sans mise à jour de la DB)
+
+`docker compose exec php bin/console doctrine:schema:update --dump-sql`
+
+`docker compose exec php bin/console d:s:u --dump-sql`
+
+Executer les requètes en DB
+
+`docker compose exec php bin/console doctrine:schema:update --force`
+
+`docker compose exec php bin/console d:s:u --force`
