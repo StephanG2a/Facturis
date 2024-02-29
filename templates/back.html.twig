@@ -11,13 +11,21 @@
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
+			{{ encore_entry_link_tags('sidebar') }}
 		{% endblock %}
 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
+			{{ encore_entry_script_tags('sidebar') }}
 		{% endblock %}
 	</head>
-	<body>
-		{% block body %}{% endblock %}
-	</body>
-</html>
+	<body
+		class="min-h-screen">
+		{# <main class="h-screen"> #}
+		{{ include('partials/back/_sidebar.html.twig') }}
+		<main class="xl:pl-72"> {% block body %}{% endblock %}
+
+			</main>
+		</body>
+	</html>
+</main></body></html>

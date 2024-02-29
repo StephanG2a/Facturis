@@ -18,16 +18,8 @@
 		{% endblock %}
 	</head>
 	<body>
+		{{ include('partials/front/_header.html.twig') }}
 		{% block body %}{% endblock %}
-
-		<br>
-		{% for type, flashMessages in app.flashes %}
-			{% for message in flashMessages %}
-				{{ type }}
-				-
-				{{ message }}
-				<br>
-			{% endfor %}
-		{% endfor %}
+		{{ include('partials/front/_footer.html.twig') }}
 	</body>
 </html>

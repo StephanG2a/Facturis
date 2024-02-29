@@ -13,4 +13,10 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', []);
     }
+
+    #[Route('/tailwind', name: 'app_tailwind')]
+    public function tailwind(): Response
+    {
+        return $this->render('home/tailwind.html.twig', []);
+    }
 }
