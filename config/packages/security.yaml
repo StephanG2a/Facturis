@@ -46,7 +46,7 @@ security:
     - { path: ^/dashboard/users, roles: ROLE_ADMIN }
 
     # User-accessible paths
-    - { path: ^/dashboard, roles: ROLE_USER }
+    - { path: ^/dashboard, roles: [ROLE_USER, IS_AUTHENTICATED_FULLY] }
 
     # Public paths
     - { path: ^/login, roles: PUBLIC_ACCESS }
