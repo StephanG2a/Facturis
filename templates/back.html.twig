@@ -26,6 +26,14 @@
 		<main class="xl:pl-72"> {% block body %}{% endblock %}
 
 			</main>
+			{% for type, flashMessages in app.flashes %}
+				{% for message in flashMessages %}
+					{{ type }}
+					-
+					{{ message }}
+					<br>
+				{% endfor %}
+			{% endfor %}
 		</body>
 	</html>
 </main></body></html>

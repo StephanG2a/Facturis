@@ -1,6 +1,10 @@
 {% set navItems = [
-    {'title': 'Dashboard', 'route': 'app_home', 'icon': 'home'},
-    {'title': 'Projects', 'route': 'app_tailwind', 'icon': 'folder'},
+    {'title': 'Dashboard', 'route': 'dashboard_index'},
+    {'title': 'Users', 'route': 'dashboard_users_index', 'roles': ['ROLE_ADMIN']},
+    {'title': 'Quote', 'route': 'dashboard_quote_index'},
+    {'title': 'Invoice', 'route': 'dashboard_invoice_index'},
+    {'title': 'Products', 'route': 'dashboard_products_index'},
+    {'title': 'Clients', 'route': 'dashboard_clients_index'},
 ] %}
 
 
@@ -18,10 +22,12 @@
 		<nav class="mt-5">
 			<ul>
 				{% for item in navItems %}
-					{% set isActive = (app.request.attributes.get('_route') == item.route) %}
-					<li>
-						<a href="{{ path(item.route) }}" class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold {{ isActive ? 'bg-gray-800 text-white' : '' }}">{{ item.title }}</a>
-					</li>
+					{% if not item.roles is defined or is_granted(item.roles|first) %}
+						{% set isActive = (app.request.attributes.get('_route') == item.route) %}
+						<li>
+							<a href="{{ path(item.route) }}" class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold {{ isActive ? 'bg-gray-800 text-white' : '' }}">{{ item.title }}</a>
+						</li>
+					{% endif %}
 				{% endfor %}
 			</ul>
 		</nav>
