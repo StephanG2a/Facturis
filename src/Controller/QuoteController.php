@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/dashboard/quote', name: 'dashboard_quote_')]
-#[IsGranted(["IS_AUTHENTICATED_FULLY", "ROLE_USER"])]
+#[IsGranted("ROLE_USER")]
 class QuoteController extends AbstractController
 {
     #[Route('/', name: 'index')]
