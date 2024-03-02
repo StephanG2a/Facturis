@@ -1,0 +1,19 @@
+{% set navItems = [
+    {'title': 'Account', 'route': 'dashboard_profile_index'},
+    {'title': 'Notifications', 'route': 'dashboard_profile_notification'},
+    {'title': 'Billing', 'route': 'dashboard_profile_billing'}
+] %}
+
+
+<header class="border-b border-gray-200">
+	<nav class="flex overflow-x-auto py-4">
+		<ul role="list" class="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-700 sm:px-6 lg:px-8">
+			{% for item in navItems %}
+				{% set isActive = (app.request.attributes.get('_route') == item.route) %}
+				<li>
+					<a href="{{ path(item.route) }}" class="text-gray-700 {{ isActive ? 'text-indigo-600' : '' }}">{{ item.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
+</header>
