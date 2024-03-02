@@ -10,6 +10,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -23,8 +24,20 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->remove('password');
+        $userForm->add('newPassword', PasswordType::class, [
+            'label' => 'New Password',
+            'attr' => ['placeholder' => '********'],
+            'required' => false,
+        ]);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $newPassword = $user->getNewPassword();
+            if ($newPassword) {
+                $hash = $passwordHasher->hashPassword($user, $newPassword);
+                $user->setPassword($hash);
+            }
+            $em->flush();
+            $this->addFlash('success', 'Profile updated successfully');
         }
 
         return $this->render('user/index.html.twig', [

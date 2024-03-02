@@ -35,6 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Please enter a password')]
     private ?string $password = null;
 
+    #[Assert\Length(min: 8, minMessage: 'Your password should be at least {{ limit }} characters')]
+    private $newPassword = null;
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Please enter a firstname')]
     #[Assert\Length(min: 2, minMessage: 'Your firstname should be at least {{ limit }} characters')]
@@ -123,6 +126,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getNewPassword(): string
+    {
+        return $this->newPassword;
+    }
+
+    public function setNewPassword(string $password): static
+    {
+        $this->newPassword = $password;
 
         return $this;
     }
