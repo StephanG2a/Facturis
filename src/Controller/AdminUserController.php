@@ -22,18 +22,13 @@ class AdminUserController extends AbstractController
     {
         $users = $userRepository->findAll();
 
+        // Filter out users with ROLE_ADMIN if necessary
         $filteredUsers = array_filter($users, function ($user) {
             return !in_array('ROLE_ADMIN', $user->getRoles());
         });
 
-        $pagination = $paginator->paginate(
-            $filteredUsers,
-            $request->query->getInt('page', 1),
-            10
-        );
-
         return $this->render('adminUser/index.html.twig', [
-            'pagination' => $pagination,
+            'users' => $filteredUsers,
         ]);
     }
 

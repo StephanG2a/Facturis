@@ -18,11 +18,11 @@
 		{% endblock %}
 	</head>
 	<body class="h-screen">
-		{{ include('partials/front/_header.html.twig') }}
+		{{ include('partials/navigation/_header.html.twig') }}
 		<main>
 			{% block body %}{% endblock %}
 		</main>
-		{{ include('partials/front/_footer.html.twig') }}
+		{{ include('partials/navigation/_footer.html.twig') }}
 		<div class="absolute top-5 right-5 space-y-2 z-50">
 			{% for type, flashMessages in app.flashes %}
 				{% for message in flashMessages %}
