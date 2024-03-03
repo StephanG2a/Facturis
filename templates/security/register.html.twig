@@ -1,0 +1,22 @@
+{% extends 'front.html.twig' %}
+{% block title %}Sign uo
+{% endblock %}
+
+{% block body %}
+	<div class="max-w-md mx-auto mt-10">
+		<h2 class="text-2xl font-bold mb-5">Inscription</h2>
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'space-y-4'}}) }}
+
+		{{ form_rest(form) }}
+
+		<button type="submit" class="mt-5 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+			Sign up
+		</button>
+
+		<div class="mt-4 text-sm">
+			<a href="{{ path('app_login') }}" class="text-blue-500 hover:text-blue-700">Already have an account?</a>
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

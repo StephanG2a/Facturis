@@ -16,6 +16,8 @@ security:
     main:
       lazy: true
       provider: app_user_provider
+      login_throttling:
+        max_attempts: 3
       custom_authenticator: App\Security\AppAuthenticator
       logout:
         path: app_logout
@@ -35,17 +37,22 @@ security:
       # switch_user: true
 
   role_hierarchy:
-    #ROLE_COORDINATOR: ROLE_USER
-    ROLE_ADMIN: ROLE_CLIENT
+    ROLE_ADMIN: ROLE_USER
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/admin, roles: ROLE_ADMIN }
+    # Admin-only paths
+    - { path: ^/dashboard/users, roles: ROLE_ADMIN }
+
+    # User-accessible paths
+    - { path: ^/dashboard, roles: [ROLE_USER, IS_AUTHENTICATED_FULLY] }
+
+    # Public paths
     - { path: ^/login, roles: PUBLIC_ACCESS }
     - { path: ^/register, roles: PUBLIC_ACCESS }
     - { path: ^/reset-password, roles: PUBLIC_ACCESS }
-    - { path: ^/, roles: ROLE_USER }
+    - { path: ^/, roles: PUBLIC_ACCESS }
 
 when@test:
   security:

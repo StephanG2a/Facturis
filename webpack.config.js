@@ -22,6 +22,7 @@ Encore
    * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
    */
   .addEntry("app", "./assets/app.js")
+  .addEntry("sidebar", "./assets/sidebar.js")
   .addEntry("quote", "./assets/quote.js")
   .addEntry("invoice", "./assets/invoice.js")
   //   .addStyleEntry("login", "./assets/styles/login.css")
