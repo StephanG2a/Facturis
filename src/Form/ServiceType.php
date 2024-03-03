@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Service;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,10 +16,15 @@ class ServiceType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('duration')
-            ->add('users')
-            ->add('categories')
-        ;
+            ->add('duration');
+        $builder->add('category', EntityType::class, [
+            'class' => Category::class,
+            'choice_label' => function (Category $category) {
+                return $category->getName();
+            },
+            'multiple' => false,
+            'expanded' => false,
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

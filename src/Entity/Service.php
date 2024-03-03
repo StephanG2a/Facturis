@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ServiceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 class Service
@@ -15,9 +16,11 @@ class Service
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Assert\NotBlank(message: 'Please enter a price')]
     private ?string $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -29,7 +32,7 @@ class Service
 
     #[ORM\ManyToOne(inversedBy: 'services')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $categories = null;
+    private ?Category $category = null;
 
     public function getId(): ?int
     {
@@ -84,14 +87,14 @@ class Service
         return $this;
     }
 
-    public function getCategories(): ?Category
+    public function getCategory(): ?Category
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function setCategories(?Category $categories): static
+    public function setCategory(?Category $category): static
     {
-        $this->categories = $categories;
+        $this->category = $category;
 
         return $this;
     }
