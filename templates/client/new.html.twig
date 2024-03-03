@@ -1,0 +1,12 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Clients
+{% endblock %}
+
+{% block body %}
+	<h1>Create new Client</h1>
+
+	{{ include('client/_form.html.twig') }}
+
+	<a href="{{ path('dashboard_client_index') }}">back to list</a>
+{% endblock %}

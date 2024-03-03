@@ -38,7 +38,7 @@ class UserFixtures extends Fixture
         $user->setPassword($this->passwordHasher->hashPassword($user, $pwd));
         $manager->persist($user);
 
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 20; ++$i) {
             $user = (new User())
                 ->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())

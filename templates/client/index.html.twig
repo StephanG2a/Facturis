@@ -1,12 +1,46 @@
 {% extends 'back.html.twig' %}
 
-{% block title %}Hello DefaultController!
+{% block title %}Clients
 {% endblock %}
 
 {% block body %}
-	<div class="p-6">
-		<h1 class="text-2xl font-semibold">Hello DefaultController!</h1>
-		<p class="mt-4">This friendly message is coming from:</p>
-		<pre class="p-4 bg-gray-100 rounded-md mt-2">Facturis\Controller\DefaultController::index</pre>
-	</div>
+	<h1>Client index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>CompanyName</th>
+				<th>FirstName</th>
+				<th>LastName</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Address</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for client in clients %}
+				<tr>
+					<td>{{ client.id }}</td>
+					<td>{{ client.companyName }}</td>
+					<td>{{ client.firstName }}</td>
+					<td>{{ client.lastName }}</td>
+					<td>{{ client.email }}</td>
+					<td>{{ client.phone }}</td>
+					<td>{{ client.address }}</td>
+					<td>
+						<a href="{{ path('dashboard_client_show', {'id': client.id}) }}">show</a>
+						<a href="{{ path('dashboard_client_edit', {'id': client.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('dashboard_client_new') }}">Create new</a>
 {% endblock %}
