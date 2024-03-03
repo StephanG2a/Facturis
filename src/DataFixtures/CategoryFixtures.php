@@ -8,14 +8,17 @@ use Doctrine\Persistence\ObjectManager;
 
 class CategoryFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $categoryNames = ['Web Design', 'SEO', 'Content Creation'];
+        $faker = \Faker\Factory::create('fr_FR');
 
-        foreach ($categoryNames as $categoryName) {
+        for ($i = 0; $i < 8; $i++) {
             $category = new Category();
-            $category->setName($categoryName);
+            $category->setName($faker->word);
+
             $manager->persist($category);
+            // This reference can be used to set categories in ServiceFixtures
+            $this->addReference(Category::class . '_' . $i, $category);
         }
 
         $manager->flush();

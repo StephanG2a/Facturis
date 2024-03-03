@@ -49,6 +49,7 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordHasher->hashPassword($user, $pwd));
 
             $manager->persist($user);
+            $this->addReference('user-' . $i, $user);
         }
 
         $manager->flush();
