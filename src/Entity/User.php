@@ -61,9 +61,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Client::class, orphanRemoval: true)]
     private Collection $clients;
 
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Service::class, orphanRemoval: true)]
+    private Collection $services;
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
+        $this->services = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -235,6 +239,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($client->getUsers() === $this) {
                 $client->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): static
+    {
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+            $service->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): static
+    {
+        if ($this->services->removeElement($service)) {
+            // set the owning side to null (unless already changed)
+            if ($service->getUsers() === $this) {
+                $service->setUsers(null);
             }
         }
 
