@@ -157,7 +157,7 @@ class SecurityController extends AbstractController
                 $mailer->send($email);
             }
             $this->addFlash('success', 'If the email exists in our system, you will receive an email with instructions to reset your password');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/forgot_password.html.twig', [

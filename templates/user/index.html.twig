@@ -11,7 +11,7 @@
 		<div class="grid mt-8 justify-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
 			<div>
 				<h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-				<p class="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
+				<p class="mt-1 text-sm leading-6 text-gray-600">You can change you personal information right here.</p>
 			</div>
 
 			{{ form_start(form, {'attr': {'class': 'md:col-span-2'}}) }}
@@ -59,38 +59,38 @@
 		</div>
 
 		<!-- Log out other sessions -->
-		<div class="grid mt-8 justify-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-			<div>
-				<h2 class="text-base font-semibold leading-7 text-gray-900">Log out other sessions</h2>
-				<p class="mt-1 text-sm leading-6 text-gray-600">Please enter your password to confirm you would like to log out of your other sessions across all of your devices.</p>
-			</div>
-
-			<form class="md:col-span-2">
-				<div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-					<div class="col-span-full">
-						<label for="logout-password" class="block text-sm font-medium leading-6 text-gray-900">Your password</label>
-						<div class="mt-2">
-							<input id="logout-password" name="password" type="password" autocomplete="current-password" class="block w-full rounded-md border-gray-300 bg-white py-1.5 text-gray-900 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm sm:leading-6">
+	{# <div class="grid mt-8 justify-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+				<div>
+					<h2 class="text-base font-semibold leading-7 text-gray-900">Log out other sessions</h2>
+					<p class="mt-1 text-sm leading-6 text-gray-600">Please enter your password to confirm you would like to log out of your other sessions across all of your devices.</p>
+				</div>
+	
+				<form class="md:col-span-2">
+					<div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+						<div class="col-span-full">
+							<label for="logout-password" class="block text-sm font-medium leading-6 text-gray-900">Your password</label>
+							<div class="mt-2">
+								<input id="logout-password" name="password" type="password" autocomplete="current-password" class="block w-full rounded-md border-gray-300 bg-white py-1.5 text-gray-900 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm sm:leading-6">
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="mt-8 flex justify-start">
-					<button type="submit" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Log out other sessions</button>
-				</div>
-			</form>
-		</div>
+	
+					<div class="mt-8 flex justify-start">
+						<button type="submit" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Log out other sessions</button>
+					</div>
+				</form>
+			</div> #}
 
 		<!-- Delete account -->
-		<div class="grid mt-8 justify-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-			<div>
-				<h2 class="text-base font-semibold leading-7 text-gray-900">Delete account</h2>
-				<p class="mt-1 text-sm leading-6 text-gray-600">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.</p>
-			</div>
-
-			<form class="flex items-start md:col-span-2">
-				<button type="submit" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Yes, delete my account</button>
-			</form>
-		</div>
+		{# <div class="grid mt-8 justify-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+					<div>
+						<h2 class="text-base font-semibold leading-7 text-gray-900">Delete account</h2>
+						<p class="mt-1 text-sm leading-6 text-gray-600">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.</p>
+					</div>
+		
+					<form class="flex items-start md:col-span-2">
+						<button type="submit" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Yes, delete my account</button>
+					</form>
+				</div> #}
 	</div>
 {% endblock %}

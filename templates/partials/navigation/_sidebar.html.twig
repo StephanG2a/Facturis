@@ -22,7 +22,7 @@
 			<h2>Facturis</h2>
 		</div>
 		<nav class="mt-5">
-			<ul>
+			<ul class="flex flex-col gap-2 justify-center">
 				{% for item in navItems %}
 					{% if not item.roles is defined or is_granted(item.roles|first) %}
 						{% set isActive = (app.request.attributes.get('_route') == item.route) %}
