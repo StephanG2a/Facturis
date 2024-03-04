@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 class Service
@@ -15,9 +18,11 @@ class Service
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Assert\NotBlank(message: 'Please enter a price')]
     private ?string $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -29,7 +34,19 @@ class Service
 
     #[ORM\ManyToOne(inversedBy: 'services')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $categories = null;
+    private ?Category $category = null;
+
+    #[ORM\ManyToMany(targetEntity: Quote::class, mappedBy: 'service')]
+    private Collection $quotes;
+
+    #[ORM\ManyToMany(targetEntity: Invoice::class, mappedBy: 'services')]
+    private Collection $invoices;
+
+    public function __construct()
+    {
+        $this->quotes = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -84,14 +101,68 @@ class Service
         return $this;
     }
 
-    public function getCategories(): ?Category
+    public function getCategory(): ?Category
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function setCategories(?Category $categories): static
+    public function setCategory(?Category $category): static
     {
-        $this->categories = $categories;
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quote>
+     */
+    public function getQuotes(): Collection
+    {
+        return $this->quotes;
+    }
+
+    public function addQuote(Quote $quote): static
+    {
+        if (!$this->quotes->contains($quote)) {
+            $this->quotes->add($quote);
+            $quote->addService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuote(Quote $quote): static
+    {
+        if ($this->quotes->removeElement($quote)) {
+            $quote->removeService($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Invoice>
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): static
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices->add($invoice);
+            $invoice->addService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): static
+    {
+        if ($this->invoices->removeElement($invoice)) {
+            $invoice->removeService($this);
+        }
 
         return $this;
     }
