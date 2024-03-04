@@ -4,45 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Invoice index</h1>
+	<div class="container mx-auto px-4 py-8">
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>TotalPrice</th>
-				<th>TaxAmount</th>
-				<th>Status</th>
-				<th>IssueDate</th>
-				<th>DueDate</th>
-				<th>CreatedAt</th>
-				<th>UpdatedAt</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for invoice in invoices %}
-				<tr>
-					<td>{{ invoice.id }}</td>
-					<td>{{ invoice.totalPrice }}</td>
-					<td>{{ invoice.taxAmount }}</td>
-					<td>{{ invoice.status }}</td>
-					<td>{{ invoice.issueDate ? invoice.issueDate|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ invoice.dueDate ? invoice.dueDate|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ invoice.createdAt ? invoice.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ invoice.updatedAt ? invoice.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>
-						<a href="{{ path('dashboard_invoice_show', {'id': invoice.id}) }}">show</a>
-						<a href="{{ path('dashboard_invoice_edit', {'id': invoice.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="9">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		<div class="px-4 sm:px-6 lg:px-8">
+			<div class="sm:flex sm:items-center">
+				<div class="sm:flex-auto">
+					<h1 class="text-base font-semibold leading-6 text-gray-900">Invoice</h1>
+					<p class="mt-2 text-sm text-gray-700">A list of all the invoice in your account</p>
+				</div>
+				<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+					<a href="{{ path('dashboard_invoice_new') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add invoice</a>
+				</div>
+			</div>
+			<div class="mt-8 flow-root">
+				<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+					<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+						{% embed 'partials/table/_table.html.twig' with {
+        headers: ['ID', 'TotalPrice', 'TaxAmount', 'Status', 'IssueDate', 'DueDate', 'CreatedAt', 'UpdatedAt'],
+            rows: invoices|map(invoice => [invoice.id, invoice.totalPrice, invoice.taxAmount, invoice.status, invoice.issueDate ? invoice.issueDate|date('Y-m-d') : '', invoice.dueDate ? invoice.dueDate|date('Y-m-d') : '', invoice.createdAt ? invoice.createdAt|date('Y-m-d') : '', invoice.updatedAt ? invoice.updatedAt|date('Y-m-d') : '']),
+            actions: { template: 'invoice/_invoice_actions.html.twig' }
+    } %}{% endembed %}
+					</div>
+				</div>
+			</div>
+		</div>
 
-	<a href="{{ path('dashboard_invoice_new') }}">Create new</a>
+	</div>
 {% endblock %}

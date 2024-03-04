@@ -1,19 +1,10 @@
-{# {% set navItems = [
-    {'title': 'Dashboard', 'route': 'dashboard_index'},
-    {'title': 'Users', 'route': 'dashboard_users_index', 'roles': ['ROLE_ADMIN']},
-    {'title': 'Quote', 'route': 'dashboard_quote_index'},
-    {'title': 'Invoice', 'route': 'dashboard_invoice_index'},
-    {'title': 'Products', 'route': 'dashboard_products_index'},
-    {'title': 'Clients', 'route': 'dashboard_clients_index'},
-] %} #}
-
 {% set navItems = [
     {'title': 'Dashboard', 'route': 'dashboard_index'},
     {'title': 'Users', 'route': 'dashboard_users_index', 'roles': ['ROLE_ADMIN']},
     {'title': 'Quote', 'route': 'dashboard_quote_index'},
     {'title': 'Invoice', 'route': 'dashboard_invoice_index'},
-	{'title': 'Service', 'route': 'dashboard_service_index'},
-	{'title': 'Category', 'route': 'dashboard_category_index'},
+	{'title': 'Services', 'route': 'dashboard_service_index'},
+	{'title': 'Categories', 'route': 'dashboard_category_index'},
 	{'title': 'Clients', 'route': 'dashboard_client_index'},
 ] %}
 
@@ -26,8 +17,9 @@
 	</button>
 
 	<div class="px-6 py-4">
-		<div class="flex h-16 items-center">
+		<div class="flex h-16 items-center gap-4 text-indigo-600">
 			<img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+			<h2>Facturis</h2>
 		</div>
 		<nav class="mt-5">
 			<ul>

@@ -4,43 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Quote index</h1>
+	<div class="container mx-auto px-4 py-8">
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>TotalPrice</th>
-				<th>TaxRate</th>
-				<th>Status</th>
-				<th>CreatedAt</th>
-				<th>UpdatedAt</th>
-				<th>ValidUntil</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for quote in quotes %}
-				<tr>
-					<td>{{ quote.id }}</td>
-					<td>{{ quote.totalPrice }}</td>
-					<td>{{ quote.taxRate }}</td>
-					<td>{{ quote.status }}</td>
-					<td>{{ quote.createdAt ? quote.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ quote.updatedAt ? quote.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ quote.validUntil ? quote.validUntil|date('Y-m-d H:i:s') : '' }}</td>
-					<td>
-						<a href="{{ path('dashboard_quote_show', {'id': quote.id}) }}">show</a>
-						<a href="{{ path('dashboard_quote_edit', {'id': quote.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="8">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		<div class="px-4 sm:px-6 lg:px-8">
+			<div class="sm:flex sm:items-center">
+				<div class="sm:flex-auto">
+					<h1 class="text-base font-semibold leading-6 text-gray-900">Quote</h1>
+					<p class="mt-2 text-sm text-gray-700">A list of all the quote in your account</p>
+				</div>
+				<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+					<a href="{{ path('dashboard_quote_new') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add quote</a>
+				</div>
+			</div>
+			<div class="mt-8 flow-root">
+				<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+					<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+						{% embed 'partials/table/_table.html.twig' with {
+        headers: ['ID', 'TotalPrice', 'TaxRate', 'Status', 'CreatedAt', 'UpdatedAt', 'ValidUntil'],
+            rows: quotes|map(quote => [quote.id, quote.totalPrice, quote.taxRate, quote.status, quote.createdAt ? quote.createdAt|date('Y-m-d') : '', quote.updatedAt ? quote.updatedAt|date('Y-m-d') : '', quote.validUntil ? quote.validUntil|date('Y-m-d') : '']),
+            actions: { template: 'quote/_quote_actions.html.twig' }
+    } %}{% endembed %}
+					</div>
+				</div>
+			</div>
+		</div>
 
-	<a href="{{ path('dashboard_quote_new') }}">Create new</a>
+	</div>
 {% endblock %}

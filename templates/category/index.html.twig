@@ -4,35 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Category index</h1>
+	<div class="container mx-auto px-4 py-8">
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-				<th>Description</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for category in categories %}
-				<tr>
-					<td>{{ category.id }}</td>
-					<td>{{ category.name }}</td>
-					<td>{{ category.description }}</td>
-					<td>
-						<a href="{{ path('dashboard_category_show', {'id': category.id}) }}">show</a>
-						<a href="{{ path('dashboard_category_edit', {'id': category.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="4">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		<div class="px-4 sm:px-6 lg:px-8">
+			<div class="sm:flex sm:items-center">
+				<div class="sm:flex-auto">
+					<h1 class="text-base font-semibold leading-6 text-gray-900">Category</h1>
+					<p class="mt-2 text-sm text-gray-700">A list of all the categories in your application for your services</p>
+				</div>
+				<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+					<a href="{{ path('dashboard_category_new') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add category</a>
+				</div>
+			</div>
+			<div class="mt-8 flow-root">
+				<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+					<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+						{% embed 'partials/table/_table.html.twig' with {
+        headers: ['ID', 'Name', 'Description'],
+            rows: categories|map(category => [category.id, category.name, category.description]),
+            actions: { template: 'category/_category_actions.html.twig' }
+    } %}{% endembed %}
+					</div>
+				</div>
+			</div>
+		</div>
 
-	<a href="{{ path('dashboard_category_new') }}">Create new</a>
+	</div>
 {% endblock %}
